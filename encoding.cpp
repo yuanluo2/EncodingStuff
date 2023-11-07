@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <memory>
 #include <cstdint>
 
 #ifdef _WIN32
@@ -85,8 +86,10 @@ std::string conv_unicode_to_utf8_string(const std::wstring& wstr){
 */
 std::string conv_unicode_to_ascii_string(const std::wstring& wstr){
     size_t len = WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
-    std::string result(len, '\0');
-    WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, &result[0], len, nullptr, nullptr);
+    auto buf = std::make_unique<char[]>(len);
+    WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, buf.get(), len, nullptr, nullptr);
+
+    std::string result = buf.get();
     return result;
 }
 
