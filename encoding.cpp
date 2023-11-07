@@ -89,7 +89,8 @@ std::string conv_unicode_to_ascii_string(const std::wstring& wstr){
     auto buf = std::make_unique<char[]>(len);
     WideCharToMultiByte(CP_ACP, 0, wstr.c_str(), -1, buf.get(), len, nullptr, nullptr);
 
-    std::string result = buf.get();
+    std::string result;
+    result.assign(buf.get());
     return result;
 }
 
