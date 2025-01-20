@@ -14,8 +14,8 @@
     the program exits.
 */
 class WinCmdUtf8Setup{
-    unsigned int codePage;
-    unsigned int outputCodePage;
+    UINT codePage;
+    UINT outputCodePage;
 public:
     WinCmdUtf8Setup(){
         codePage = GetConsoleCP();
